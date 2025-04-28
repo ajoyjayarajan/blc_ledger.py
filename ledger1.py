@@ -30,12 +30,12 @@ def add_mobile_recharge(user_name, recharge_amount, recharge_plan, date_of_recha
         "Date of Recharge": str(date_of_recharge)
     }
     
-    # Append the new record to the ledger
-    ledger = ledger.append(new_record, ignore_index=True)
+    # Append the new record to the ledger (use pd.concat() instead of append())
+    ledger = pd.concat([ledger, pd.DataFrame([new_record])], ignore_index=True)
     
     # Save the updated ledger back to the CSV
     save_ledger(ledger)
-    
+
 # Streamlit app title and description
 st.title("Mobile Recharge Ledger")
 st.markdown("""
